@@ -4,6 +4,7 @@
   import path from 'path';
 
   export default defineConfig({
+    base: '/VJ-Portfolio/',
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],

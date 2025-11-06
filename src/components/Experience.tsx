@@ -41,7 +41,7 @@ export function Experience() {
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="mb-4">Work Experience</h2>
           <p className="text-muted-foreground">
-            My professional journey in software development
+            My professional journey
           </p>
         </div>
 

@@ -1,3 +1,12 @@
+import summarizer from "/src/MeetingSummarizer.png";
+import skinalyzer from "/src/Skinalyzer.png";
+import dogDetect from "/src/dog-detector.png";
+import discBot from "/src/discBot.png";
+import kyredPort from "/src/kyredPort.png";
+import stepCounter from "/src/stepCounter.png";
+import kawaii from "/src/dashboard.png";
+import spacegame from "/src/spacegame.png";
+
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -11,12 +20,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "./ui/dialog";
-import summarizer from "/src/MeetingSummarizer.png";
-import skinalyzer from "/src/Skinalyzer.png";
-import dogDetect from "/src/dog-detector.png";
-import discBot from "/src/discBot.png";
-import kyredPort from "/src/kyredPort.png";
-import stepCounter from "/src/stepCounter.png";
 
 export function Projects() {
   const [showAllProjects, setShowAllProjects] = useState(false);
@@ -27,7 +30,7 @@ export function Projects() {
       title: "Resort Booking and Management System",
       role: "Assistant Backend Developer",
       description: "A full-featured booking and management platform with real-time analytics, payment processing, and admin dashboard.",
-      image: "https://images.unsplash.com/photo-1529429612779-c8e40ef2f36d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGNvZGluZyUyMHNjcmVlbnxlbnwxfHx8fDE3NjExMzIxNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      image: kawaii,
       tags: ["Django", "React", "Vue", "PostgreSQL", "Paymongo", "DigitalOcean"],
       featured: true,
       codeUrl: "https://github.com/",
@@ -80,7 +83,7 @@ export function Projects() {
       title: "Space Shooter Game",
       role: "Lead Developer",
       description: "Space shooter game with multiple enemies, bosses and power-ups, with a leaderboard system.",
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9ncmFtbWluZyUyMHdvcmt8ZW58MXx8fHwxNzYxMTMyMTYzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      image: spacegame,
       tags: ["Godot", "C#", "Game Design"],
       featured: false,
     },
@@ -107,6 +110,7 @@ export function Projects() {
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          style={{ objectPosition: '0.5px 0.5px' }}
         />
       </div>
       <div className="p-6 space-y-4">

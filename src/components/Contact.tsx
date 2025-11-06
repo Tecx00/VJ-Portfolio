@@ -3,9 +3,12 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Card } from "./ui/card";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 export function Contact() {
+  const form = useRef<HTMLFormElement>(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,10 +17,30 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    setLoading(true);
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          alert("✅ Message sent successfully!");
+          setFormData({ name: "", email: "", message: "" });
+        },
+        (error) => {
+          console.error("EmailJS error:", error);
+          alert("❌ Failed to send message. Please try again later.");
+        }
+      )
+      .finally(() => setLoading(false));
   };
 
   const contactInfo = [
@@ -44,7 +67,7 @@ export function Contact() {
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="mb-4">Get In Touch</h2>
           <p className="text-muted-foreground">
-            Have a project in mind or want to collaborate? Feel free to reach out!
+            Have a need from me? Feel free to reach out!
           </p>
         </div>
 
@@ -63,14 +86,17 @@ export function Contact() {
         </div>
 
         <Card className="max-w-2xl mx-auto mt-12 p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form ref={form} onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <label htmlFor="name">Name</label>
               <Input
                 id="name"
+                name="name"
                 placeholder="Your name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 required
               />
             </div>
@@ -78,10 +104,13 @@ export function Contact() {
               <label htmlFor="email">Email</label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="your.email@example.com"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 required
               />
             </div>
@@ -89,15 +118,18 @@ export function Contact() {
               <label htmlFor="message">Message</label>
               <Textarea
                 id="message"
+                name="message"
                 placeholder="What would you like to discuss?"
                 rows={5}
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
                 required
               />
             </div>
-            <Button type="submit" className="w-full">
-              Send Message
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </Card>

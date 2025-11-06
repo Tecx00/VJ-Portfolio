@@ -8,7 +8,7 @@ export function Skills() {
     },
     {
       title: "Backend",
-      skills: ["Django", "Java", "Python", "PostgreSQL", "REST APIs"],
+      skills: ["Django", "Java", "Python", "C#", "PostgreSQL", "REST APIs"],
     },
     {
       title: "Tools & Others",
